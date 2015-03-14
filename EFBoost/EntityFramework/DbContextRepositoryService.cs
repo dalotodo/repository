@@ -12,7 +12,7 @@ namespace EFBoost.EntityFramework
     /// </summary>
     /// <typeparam name="TContext">Type of the EF DbContext</typeparam>
     /// <typeparam name="TModel">Type of the repository model</typeparam>
-    public class DbContextRepositoryService<TContext,TModel> : IRepositoryService<TModel>
+    public class DbContextRepositoryService<TContext,TModel> : IRepositoryService<TModel>, IDisposable
         where TContext : DbContext
         where TModel : class
     {
@@ -120,6 +120,16 @@ namespace EFBoost.EntityFramework
                 // And then reset change tracking back to its defaults
                 db.Configuration.AutoDetectChangesEnabled = currentADCE;
             }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            // Do nothing
         }
     }
 }

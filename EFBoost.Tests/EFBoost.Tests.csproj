@@ -60,7 +60,7 @@
   <ItemGroup>
     <Compile Include="Collections\InMemoryRepositoryServiceTests.cs" />
     <Compile Include="Decorators\RepositoryDecoratorTests.cs" />
-    <Compile Include="Samples\Contexts\TestContext.cs" />
+    <Compile Include="Samples\Contexts\TestDbContext.cs" />
     <Compile Include="Samples\Models\Customer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
