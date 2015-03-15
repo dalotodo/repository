@@ -7,3 +7,5 @@ In short, a Repository service pattern is a standarized CRUD Service implementat
 ## What's in the box
 
 At this time the Repository project includes In-Memory (Collection based) & Entity Framework (EF) implementations, and a Repository Decorator that allows any Repository to be constructed as a stack of chained Repository services. This approach, when used with DI allows adding service layers into the Repository for data validation, sanitization, logging or event notifications with little or no impact on the consumer clients.
+
+Take a look at the Wiki to find out more about the project and its implementations.
