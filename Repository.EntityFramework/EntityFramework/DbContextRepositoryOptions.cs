@@ -7,6 +7,12 @@ namespace Repository.EntityFramework
 {
     public class DbContextRepositoryOptions
     {
+        public DbContextRepositoryOptions()
+        {
+            this.IncludeAddedItemsInQuery = true;
+            this.ExcludeRemovedItemsInQuery = true;
+        }
+
         /// <summary>
         /// Sets the option to tell the <see cref="DbContextRepository"/> that it should use added entities in queries
         /// </summary>

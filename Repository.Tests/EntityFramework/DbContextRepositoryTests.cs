@@ -38,7 +38,7 @@ namespace Repository.Tests.EntityFramework
             int nItems = 0;
             using (var db = new TestDbContext(connectionString))
             {
-                using (var svc = new DbContextRepositoryService<TestDbContext, Customer>(db))
+                using (var svc = db.CreateRepositoryService().OfType<Customer>())
                 {
                     nItems = svc.Query().Count();
                     svc.Add(

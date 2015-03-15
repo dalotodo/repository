@@ -72,9 +72,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Repository\Repository.csproj">
+    <ProjectReference Include="..\Repository.Core\Repository.Core.csproj">
       <Project>{0fe0c294-95f0-4de9-9cc1-929204cf7be3}</Project>
-      <Name>Repository</Name>
+      <Name>Repository.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Repository.EntityFramework\Repository.EntityFramework.csproj">
+      <Project>{e09c60de-5bed-4f6a-ba50-b7e23eca09f5}</Project>
+      <Name>Repository.EntityFramework</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
