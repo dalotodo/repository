@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EFBoost.EntityFramework
+namespace Repository.EntityFramework
 {
     /// <summary>
     /// Implements a repository service over a given Entity Framework context
@@ -91,15 +91,24 @@ namespace EFBoost.EntityFramework
             
             var added = db.ChangeTracker.Entries<TModel>().Where(x => x.State == EntityState.Added).Select(x=>x.Entity);
             var hasAdded = added.Any();
+            var shouldIncludeAdded = options.IncludeAddedItemsInQuery && hasAdded;
+
 
             var removed = db.ChangeTracker.Entries<TModel>().Where(x => x.State == EntityState.Deleted).Select(x => x.Entity);
             var hasRemoved = removed.Any();
+            var shouldExcludeRemoved = options.ExcludeRemovedItemsInQuery && hasRemoved;
 
             // If there are no items in memory return the set (improves performance)
-            if ((!hasRemoved) && (!hasAdded)) return set;
+            if ((!shouldIncludeAdded) && (!shouldExcludeRemoved)) return set;
             
             // Added items + stored items but removed items (it may degrade performance)
-            return added.Union(set).Except(removed).AsQueryable<TModel>();
+            IEnumerable<TModel> query;
+            
+            // This way it acts as an IEnumerable Queryable (does not try to convert it to SQL query)
+            query = (shouldIncludeAdded)?added.Union(set):set;
+            query = (shouldExcludeRemoved) ? query.Except(removed) : query;
+
+            return query.AsQueryable();
         }
 
         

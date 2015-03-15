@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace EFBoost.EntityFramework
+namespace Repository.EntityFramework
 {
     public class DbContextRepositoryOptions
     {

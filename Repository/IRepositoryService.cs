@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EFBoost
+namespace Repository
 {
     /// <summary>
     /// Defines a repository service. As such it incorporates Add, Update and Delete operations to the <see cref="IQueryService"/>

@@ -6,8 +6,8 @@
     <ProjectGuid>{25953480-5A35-42D7-960B-219907C5AFBB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EFBoost.Tests</RootNamespace>
-    <AssemblyName>EFBoost.Tests</AssemblyName>
+    <RootNamespace>Repository.Tests</RootNamespace>
+    <AssemblyName>Repository.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -58,21 +58,24 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="..\SolutionVersionInfo.cs">
+      <Link>Properties\SolutionVersionInfo.cs</Link>
+    </Compile>
     <Compile Include="Collections\InMemoryRepositoryServiceTests.cs" />
-    <Compile Include="Decorators\RepositoryDecoratorTests.cs" />
+    <Compile Include="EntityFramework\DbContextRepositoryTests.cs" />
     <Compile Include="Samples\Contexts\TestDbContext.cs" />
     <Compile Include="Samples\Models\Customer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EFBoost\EFBoost.csproj">
-      <Project>{0fe0c294-95f0-4de9-9cc1-929204cf7be3}</Project>
-      <Name>EFBoost</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Repository\Repository.csproj">
+      <Project>{0fe0c294-95f0-4de9-9cc1-929204cf7be3}</Project>
+      <Name>Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

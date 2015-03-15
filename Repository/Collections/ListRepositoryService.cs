@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EFBoost.Collections
+namespace Repository.Collections
 {
     public class ListRepositoryService<TModel> : InMemoryRepositoryService<List<TModel>, TModel>
         where TModel : class

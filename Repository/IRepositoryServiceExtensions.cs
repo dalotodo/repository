@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EFBoost
+namespace Repository
 {
     public static class IRepositoryServiceExtensions
     {

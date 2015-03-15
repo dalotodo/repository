@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EFBoost.Decorators
+namespace Repository.Decorators
 {
     /// <summary>
     /// Decorates a repository service to add some sort of functionality or create a service stack

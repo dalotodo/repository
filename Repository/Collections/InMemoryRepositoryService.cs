@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EFBoost.Collections
+namespace Repository.Collections
 {
     /// <summary>
     /// Implements an <see cref="IRepositoryService"/> into an in-memory collection

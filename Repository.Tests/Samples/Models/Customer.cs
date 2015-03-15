@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EFBoost.Tests.Samples.Models
+namespace Repository.Tests.Samples.Models
 {
     public class Customer
     {

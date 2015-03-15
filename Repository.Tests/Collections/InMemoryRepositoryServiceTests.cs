@@ -2,10 +2,10 @@
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using EFBoost.Collections;
-using EFBoost.Tests.Samples.Models;
+using Repository.Collections;
+using Repository.Tests.Samples.Models;
 
-namespace EFBoost.Tests.Collections
+namespace Repository.Tests.Collections
 {
     [TestClass]
     public class InMemoryRepositoryServiceTests
@@ -24,6 +24,8 @@ namespace EFBoost.Tests.Collections
         private ICollection<Customer> Collection { get { return _collection.Value; } }
 
         [TestMethod]
+        [TestCategory("In Memory Repository Tests")]
+        [TestCategory("Repository Addition Tests")]
         public void TestAdd()
         {
             using (var svc = new InMemoryRepositoryService<Customer>(Collection))
@@ -41,6 +43,8 @@ namespace EFBoost.Tests.Collections
         }
 
         [TestMethod]
+        [TestCategory("In Memory Repository Tests")]
+        [TestCategory("Repository Update Tests")]
         public void TestUpdate()
         {
             using (var svc = new InMemoryRepositoryService<Customer>(Collection))
@@ -54,6 +58,32 @@ namespace EFBoost.Tests.Collections
             {
                 var contoso = svc.Query().First(x => x.CustomerID == 3);
                 Assert.AreEqual("Contoso Limited", contoso.Name);
+            }
+        }
+
+
+        [TestMethod]
+        [TestCategory("In Memory Repository Tests")]
+        [TestCategory("Repository Deletion Tests")]
+        public void TestDelete()
+        {
+            using (var svc = new InMemoryRepositoryService<Customer>(Collection))
+            {
+                var contoso = svc.Query().First(x => x.CustomerID == 3);   
+                svc.Delete(contoso);
+            }
+
+            using (var svc = new InMemoryRepositoryService<Customer>(Collection))
+            {
+                try
+                {                   
+                    var contoso = svc.Query().First(x => x.CustomerID == 3);
+                    Assert.Fail("Item not removed.");
+                }
+                catch (InvalidOperationException)
+                {
+                    // Success!
+                }                                    
             }
         }
     }

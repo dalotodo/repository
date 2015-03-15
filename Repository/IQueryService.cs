@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace EFBoost
+namespace Repository
 {
     /// <summary>
     /// Interface that must be implemented by a service that supports general or predefined queries over a model
