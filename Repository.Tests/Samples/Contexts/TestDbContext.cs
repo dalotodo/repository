@@ -10,6 +10,15 @@ namespace Repository.Tests.Samples.Contexts
 {
     class TestDbContext : DbContext
     {
+        private static readonly string connectionString = @"Data Source=(LocalDB)\v11.0;Initial Catalog=RepositoryTests;Integrated Security=True";
+
+        public static string ConnectionString { get { return connectionString; }}
+
+        public TestDbContext(): this(TestDbContext.ConnectionString)
+        {
+
+        }
+
         public TestDbContext(string nameOrConnectionString): base(nameOrConnectionString)
         {
         }

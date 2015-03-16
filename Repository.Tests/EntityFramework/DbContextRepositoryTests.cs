@@ -4,39 +4,43 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Repository.Tests.Samples.Contexts;
 using Repository.Tests.Samples.Models;
 using Repository.EntityFramework;
+using Repository.Tests.Utils;
 
 namespace Repository.Tests.EntityFramework
 {
     [TestClass]
     public class DbContextRepositoryTests
     {
-        private static readonly string connectionString = @"Data Source=(LocalDB)\v11.0;Initial Catalog=RepositoryTests;Integrated Security=True";
+        
         [ClassInitialize]
         public static void Initialize(TestContext context)
         {
-            using (var db = new TestDbContext(connectionString))
+            using (var c = new TestDbContext())
             {
-                db.Database.CreateIfNotExists();
-
-                db.Set<Customer>().AddRange(
+                c.DropAndCreateDatabase(db =>
+                {
+                    // Do nothing
+                    db.Set<Customer>().AddRange(
                     new Customer[]
                     {
                         new Customer { Name = "A. Datum Corporation" },
                         new Customer { Name = "AdventureWorks Cycles" },
                         new Customer { Name = "Contoso Ltd." }
                     });
+                    db.SaveChanges();
 
-                db.SaveChanges();
+                });
             }
+            
         }
 
         [TestMethod]
         [TestCategory("Db Context Repository Tests")]
         [TestCategory("Repository Addition Tests")]
-        public void TestAdd()
+        public void Add_OK()
         {
             int nItems = 0;
-            using (var db = new TestDbContext(connectionString))
+            using (var db = new TestDbContext())
             {
                 using (var svc = db.CreateRepositoryService().OfType<Customer>())
                 {
@@ -51,7 +55,7 @@ namespace Repository.Tests.EntityFramework
                 }
             }
 
-            using (var db = new TestDbContext(connectionString))
+            using (var db = new TestDbContext())
             {
                 using (var svc = new DbContextRepositoryService<TestDbContext, Customer>(db))
                 {
@@ -67,7 +71,7 @@ namespace Repository.Tests.EntityFramework
         [TestCategory("Repository Update Tests")]
         public void TestUpdate()
         {
-            using (var db = new TestDbContext(connectionString))
+            using (var db = new TestDbContext())
             {
                 using (var svc = new DbContextRepositoryService<TestDbContext, Customer>(db))
                 {
@@ -78,7 +82,7 @@ namespace Repository.Tests.EntityFramework
                 db.SaveChanges();
             }
 
-            using (var db = new TestDbContext(connectionString))
+            using (var db = new TestDbContext())
             {
                 using (var svc = new DbContextRepositoryService<TestDbContext, Customer>(db))
                 {
@@ -95,7 +99,7 @@ namespace Repository.Tests.EntityFramework
         {
             int id = 0;
 
-            using (var db = new TestDbContext(connectionString))
+            using (var db = new TestDbContext())
             {
                 using (var svc = new DbContextRepositoryService<TestDbContext, Customer>(db))
                 {
@@ -106,7 +110,7 @@ namespace Repository.Tests.EntityFramework
                 db.SaveChanges();
             }
 
-            using (var db = new TestDbContext(connectionString))
+            using (var db = new TestDbContext())
             {
                 using (var svc = new DbContextRepositoryService<TestDbContext, Customer>(db))
                 {
@@ -122,7 +126,7 @@ namespace Repository.Tests.EntityFramework
         [TestCategory("LINQ to Entities Query Tests")]
         public void TestQueryIncludesAddedItems()
         {
-            using (var db = new TestDbContext(connectionString))
+            using (var db = new TestDbContext())
             {
                 var options = new DbContextRepositoryOptions
                     {
@@ -146,7 +150,7 @@ namespace Repository.Tests.EntityFramework
         [TestCategory("LINQ to Entities Query Tests")]
         public void TestQueryDoesNotIncludeAddedItems()
         {
-            using (var db = new TestDbContext(connectionString))
+            using (var db = new TestDbContext())
             {
                 var options = new DbContextRepositoryOptions
                 {
@@ -170,7 +174,7 @@ namespace Repository.Tests.EntityFramework
         [TestCategory("LINQ to Entities Query Tests")]
         public void TestQueryExcludesDeletedItems()
         {
-            using (var db = new TestDbContext(connectionString))
+            using (var db = new TestDbContext())
             {
                 var options = new DbContextRepositoryOptions
                 {
@@ -198,7 +202,7 @@ namespace Repository.Tests.EntityFramework
         [TestCategory("LINQ to Entities Query Tests")]
         public void TestQueryDoesNotExcludeDeletedItems()
         {
-            using (var db = new TestDbContext(connectionString))
+            using (var db = new TestDbContext())
             {
                 var options = new DbContextRepositoryOptions
                 {
@@ -220,13 +224,13 @@ namespace Repository.Tests.EntityFramework
             }
         }
 
-        [ClassCleanup]
-        public static void Cleanup()
-        {
-            using (var db = new TestDbContext(connectionString))
-            {
-                db.Database.Delete();
-            }
-        }
+        //[ClassCleanup]
+        //public static void Cleanup()
+        //{
+        //    using (var db = new TestDbContext())
+        //    {
+        //        db.Database.Delete();
+        //    }
+        //}
     }
 }

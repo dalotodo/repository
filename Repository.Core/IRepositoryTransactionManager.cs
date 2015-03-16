@@ -8,7 +8,7 @@ namespace Repository
     /// <summary>
     /// Manages transactions available for the IRepositoryService
     /// </summary>
-    public interface IRepositoryTransactionManager
+    public interface IRepositoryTransactionManager : IDisposable
     {
         void Begin();
         void Commit();
