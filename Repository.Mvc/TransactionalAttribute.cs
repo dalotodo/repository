@@ -26,12 +26,20 @@ namespace Repository.Mvc
 
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            if (filterContext.Exception==null)
+            // Credits to: http://stackoverflow.com/questions/737101/asp-net-mvc-how-to-handle-exception-in-json-action-return-json-error-info-b
+            var exception = filterContext.Exception ?? filterContext.HttpContext.Error;
+            if (exception==null)
             {
                 transaction.Commit();
             } else
             {
                 transaction.Rollback();
+            }
+
+
+            if ((filterContext.Result != null) && (filterContext.HttpContext.Error != null))
+            {
+                filterContext.HttpContext.ClearError();
             }
             
             base.OnActionExecuted(filterContext);

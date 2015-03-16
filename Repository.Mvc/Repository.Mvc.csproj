@@ -36,6 +36,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -70,6 +71,7 @@
     <Compile Include="..\SolutionVersionInfo.cs">
       <Link>Properties\SolutionVersionInfo.cs</Link>
     </Compile>
+    <Compile Include="SystemWebMvc\ControllerTransactionalErrorExtensions.cs" />
     <Compile Include="TransactionalAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
