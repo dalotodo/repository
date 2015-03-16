@@ -39,6 +39,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,6 +53,9 @@
     <Compile Include="DbContextRepositoryExtensions.cs" />
     <Compile Include="EntityFramework\DbContextRepositoryOptions.cs" />
     <Compile Include="EntityFramework\DbContextRepositoryService.cs" />
+    <Compile Include="EntityFramework\DbContextRepositoryTransactionManager.cs" />
+    <Compile Include="EntityFramework\DbContextRepositoryTransactionManagerOptions.cs" />
+    <Compile Include="IDbContextFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

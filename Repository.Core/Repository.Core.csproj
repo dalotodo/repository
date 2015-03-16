@@ -49,6 +49,7 @@
     <Compile Include="IRepositoryService.cs" />
     <Compile Include="Collections\InMemoryRepositoryService.cs" />
     <Compile Include="IRepositoryServiceExtensions.cs" />
+    <Compile Include="IRepositoryTransactionManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
