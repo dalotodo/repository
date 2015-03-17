@@ -26,7 +26,7 @@ namespace Repository.Tests.Collections
         [TestMethod]
         [TestCategory("In Memory Repository Tests")]
         [TestCategory("Repository Addition Tests")]
-        public void TestAdd()
+        public void Add_OK()
         {
             using (var svc = new InMemoryRepositoryService<Customer>(Collection))
             {
@@ -45,7 +45,7 @@ namespace Repository.Tests.Collections
         [TestMethod]
         [TestCategory("In Memory Repository Tests")]
         [TestCategory("Repository Update Tests")]
-        public void TestUpdate()
+        public void Update_OK()
         {
             using (var svc = new InMemoryRepositoryService<Customer>(Collection))
             {
@@ -65,7 +65,7 @@ namespace Repository.Tests.Collections
         [TestMethod]
         [TestCategory("In Memory Repository Tests")]
         [TestCategory("Repository Deletion Tests")]
-        public void TestDelete()
+        public void Delete_OK()
         {
             using (var svc = new InMemoryRepositoryService<Customer>(Collection))
             {

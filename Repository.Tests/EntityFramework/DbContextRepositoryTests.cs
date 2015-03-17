@@ -12,8 +12,8 @@ namespace Repository.Tests.EntityFramework
     public class DbContextRepositoryTests
     {
         
-        [ClassInitialize]
-        public static void Initialize(TestContext context)
+        [TestInitialize]
+        public void Initialize()
         {
             using (var c = new TestDbContext())
             {
@@ -30,8 +30,7 @@ namespace Repository.Tests.EntityFramework
                     db.SaveChanges();
 
                 });
-            }
-            
+            }            
         }
 
         [TestMethod]
@@ -69,7 +68,7 @@ namespace Repository.Tests.EntityFramework
         [TestMethod]
         [TestCategory("Db Context Repository Tests")]
         [TestCategory("Repository Update Tests")]
-        public void TestUpdate()
+        public void Update_OK()
         {
             using (var db = new TestDbContext())
             {
@@ -95,7 +94,7 @@ namespace Repository.Tests.EntityFramework
         [TestMethod]
         [TestCategory("Db Context Repository Tests")]
         [TestCategory("Repository Deletion Tests")]
-        public void TestDelete()
+        public void Delete_OK()
         {
             int id = 0;
 
@@ -124,7 +123,7 @@ namespace Repository.Tests.EntityFramework
         [TestCategory("Db Context Repository Tests")]
         [TestCategory("Repository Query Tests")]
         [TestCategory("LINQ to Entities Query Tests")]
-        public void TestQueryIncludesAddedItems()
+        public void Query_IncludedAddedItemsIsTrue_ReturnsDBAndInMemoryAddedItems()
         {
             using (var db = new TestDbContext())
             {
@@ -148,7 +147,7 @@ namespace Repository.Tests.EntityFramework
         [TestCategory("Db Context Repository Tests")]
         [TestCategory("Repository Query Tests")]
         [TestCategory("LINQ to Entities Query Tests")]
-        public void TestQueryDoesNotIncludeAddedItems()
+        public void Query_IncludedAddedItemsIsFalse_DoesNotIncludeAddedItems()
         {
             using (var db = new TestDbContext())
             {
@@ -172,7 +171,7 @@ namespace Repository.Tests.EntityFramework
         [TestCategory("Db Context Repository Tests")]
         [TestCategory("Repository Query Tests")]
         [TestCategory("LINQ to Entities Query Tests")]
-        public void TestQueryExcludesDeletedItems()
+        public void Query_ExcludeDeletedItemsIsTrue_DoesNotIncludeDeletedItemsFromQuery()
         {
             using (var db = new TestDbContext())
             {
@@ -200,7 +199,7 @@ namespace Repository.Tests.EntityFramework
         [TestCategory("Db Context Repository Tests")]
         [TestCategory("Repository Query Tests")]
         [TestCategory("LINQ to Entities Query Tests")]
-        public void TestQueryDoesNotExcludeDeletedItems()
+        public void Query_ExcludeDeletedItemsIsFalse_IncludesDeletedItems()
         {
             using (var db = new TestDbContext())
             {

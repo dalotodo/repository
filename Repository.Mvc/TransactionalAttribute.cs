@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Repository.Mvc
@@ -27,7 +28,8 @@ namespace Repository.Mvc
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             // Credits to: http://stackoverflow.com/questions/737101/asp-net-mvc-how-to-handle-exception-in-json-action-return-json-error-info-b
-            var exception = filterContext.Exception ?? filterContext.HttpContext.Error;
+            Exception exception = filterContext.Exception ?? GetExceptionFromHttpContext(filterContext.HttpContext);
+
             if (exception==null)
             {
                 transaction.Commit();
@@ -36,13 +38,49 @@ namespace Repository.Mvc
                 transaction.Rollback();
             }
 
+            TryToClearErrorFromHttpContext(filterContext.Result, filterContext.HttpContext);
 
-            if ((filterContext.Result != null) && (filterContext.HttpContext.Error != null))
-            {
-                filterContext.HttpContext.ClearError();
-            }
-            
             base.OnActionExecuted(filterContext);
+        }
+
+        private Exception GetExceptionFromHttpContext(HttpContextBase httpContext)
+        {
+            // Testing does not use HttpContext
+            if (httpContext == null) return null;
+
+            // Try to return error from HttpContext
+            Exception result = null;
+
+            try
+            {
+                result = httpContext.Error;
+            }
+            catch (NotImplementedException)
+            {
+                // Thrown by EmptyHttpContext
+            }           
+            catch
+            {
+                throw;
+            }
+
+            return result;
+        }
+
+        private void TryToClearErrorFromHttpContext(ActionResult result, HttpContextBase httpContext )
+        {
+            if (httpContext != null) return;
+
+            try
+            {
+                if ((result != null) && (httpContext.Error != null))
+                {
+                    httpContext.ClearError();
+                }
+            } catch
+            {
+                // Safely ignore
+            }
         }
     }
 }
